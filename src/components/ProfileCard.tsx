@@ -89,9 +89,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ info }) => {
             </h3>
             <div className="flex flex-wrap gap-2">
               {info.expertise.map((exp) => (
-                <div key={exp} className="px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-sm text-primary-foreground/80 dark:text-primary">
+                <Badge 
+                  key={exp} 
+                  variant="outline" 
+                  className="bg-primary/5 border-primary/20 text-primary hover:bg-primary/10 transition-colors py-1 px-3 rounded-full font-normal"
+                >
                   {exp}
-                </div>
+                </Badge>
               ))}
             </div>
           </CardContent>
