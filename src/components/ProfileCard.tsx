@@ -42,7 +42,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ info }) => {
                 <Sparkles className="w-5 h-5 text-primary mt-1" />
                 <div>
                   <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">最近在做</h3>
-                  <p className="text-foreground font-medium">{info.currentTask}</p>
+                  <a href="#" className="text-foreground font-medium hover:text-primary transition-colors underline">{info.currentTask}</a>
                 </div>
               </div>
             </div>
