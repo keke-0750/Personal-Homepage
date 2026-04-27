@@ -6,7 +6,7 @@ import { ProfileInfo } from '@/types/types';
 const personalInfo: ProfileInfo = {
   name: '吴思炜',
   intro: '能扛事、重落地，于有限条件中持续自我精进的跨界产品人。',
-  avatar: 'https://miaoda-site-img.cdn.bcebos.com/images/baidu_image_search_a33b207a-e399-4502-a823-eb5cd72ba33f.jpg',
+  avatar: 'https://miaoda-conversation-file.cdn.bcebos.com/user-b8o9ucw6sl4w/conv-b8o9v8i8we80/20260427/file-b8onrisd18u8.jpg',
   role: '产品经理兼 UI 设计师',
   currentTask: '正在学习用 AI 整理自己的作品集',
   interests: ['阅读', '写作', '视觉设计'],
