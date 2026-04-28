@@ -22,7 +22,7 @@ const contactInfo = {
   email: '2549275929@qq.com',
   phone: '+86 13828023267',
   location: '广东 · 江门',
-  github: 'wusiwei1234',
+  github: 'keke-0750',
 };
 
 // 作品数据
