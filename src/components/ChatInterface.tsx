@@ -24,7 +24,18 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ profile }) => {
     const greeting: ChatMessage = {
       id: 'greeting',
       role: 'assistant',
-      content: `你好！我是吴思炜的数字分身。很高兴见到你！你可以问我关于我的职业、项目或如何联系我。`,
+      content: `你好！我是吴思炜的数字分身 👋
+
+很高兴见到你！我了解思炜的职业背景、项目经历和兴趣爱好。
+
+你可以问我：
+• 他的职业和工作内容
+• 最近在做的项目
+• 擅长技能和作品
+• 兴趣爱好和特点
+• 如何联系他
+
+或者直接开始聊天，我会尽力回答！`,
       created_at: new Date().toISOString(),
     };
     setMessages([greeting]);
@@ -42,23 +53,156 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ profile }) => {
   const generateResponse = (userQuery: string): string => {
     const query = userQuery.toLowerCase();
     
-    if (query.includes('做什么') || query.includes('最近')) {
-      return `我最近正在搭建自己的个人主页，并尝试利用 AI 来整理和优化我的作品集。这对我来说是一个很有趣的跨界尝试！`;
-    }
-    if (query.includes('作品') || query.includes('案例')) {
-      return `作为一名产品经理兼 UI 设计师，我有很多涵盖项目开发、AI 应用和知识整理的作品。由于主页还在完善中，你可以通过私信或邮件联系我，我会非常乐意分享我的作品集。`;
-    }
-    if (query.includes('联系') || query.includes('微信') || query.includes('邮件')) {
-      return `你可以通过我的个人主页留言或直接加我微信（建议在 HR 渠道获取具体联系方式）。我很期待与你交流！`;
-    }
-    if (query.includes('擅长') || query.includes('领域')) {
-      return `我擅长项目开发全流程管理，对 AI 应用落地和知识整理也有深厚的兴趣和实战经验。我始终追求在有限条件下实现产品价值的最大化。`;
-    }
-    if (query.includes('职业') || query.includes('身份')) {
-      return `我是一名跨界产品人，目前身兼产品经理和 UI 设计师双重身份，能够从设计思维和产品逻辑两个维度去思考问题。`;
+    // 基本信息类
+    if (query.includes('名字') || query.includes('称呼') || query.includes('是谁')) {
+      return `我叫吴思炜，朋友们也叫我思炜。我是一名跨界产品人，目前专注于产品管理和 UI 设计领域。很高兴认识你！`;
     }
     
-    return `这是一个很好的问题！作为吴思炜的数字分身，我主要了解他的职业背景（产品/UI）、最近在做的 AI 作品集项目，以及他擅长的项目开发和知识整理方向。你可以试着问我：“你最近在做什么？”或者“你有哪些作品？”`;
+    if (query.includes('哪里人') || query.includes('家乡') || query.includes('所在地') || query.includes('城市')) {
+      return `我目前在广东江门生活和工作。这是一座美丽的侨乡城市，生活节奏舒适，很适合静心做事和思考。`;
+    }
+    
+    // 职业相关
+    if (query.includes('职业') || query.includes('身份') || query.includes('工作')) {
+      return `我是一名产品经理兼 UI 设计师，这是一个很有意思的跨界角色。我能够从设计思维和产品逻辑两个维度去思考问题，既能理解用户需求，又能把控技术可行性。这种双重视角让我在项目中能够更好地协调各方资源，推动产品落地。`;
+    }
+    
+    if (query.includes('做什么') || query.includes('最近') || query.includes('当前')) {
+      return `我最近正在做两件主要的事情：
+1. 搭建自己的个人主页，用 React + Vite + Tailwind CSS 技术栈，这是一个很好的实践项目
+2. 学习用 AI 整理和优化自己的作品集，探索 AI 在知识管理方面的应用
+
+这个过程让我对前端开发和 AI 应用有了更深的理解，也发现了很多有趣的可能性。`;
+    }
+    
+    // 技能和擅长
+    if (query.includes('擅长') || query.includes('技能') || query.includes('能力') || query.includes('专长')) {
+      return `我主要的擅长领域包括：
+
+1. **项目开发**：熟悉从需求分析到上线的全流程管理，能够协调设计、开发、测试等多方资源
+2. **AI 应用**：积极探索 AI 工具在实际工作中的应用，比如用 AI 整理知识、生成内容等
+3. **知识整理**：擅长将复杂的信息结构化，建立清晰的知识体系
+
+我相信在有限条件中持续自我精进，以产品之心驱动价值落地。`;
+    }
+    
+    // 作品和项目
+    if (query.includes('作品') || query.includes('项目') || query.includes('案例') || query.includes('做过什么')) {
+      return `我的作品主要集中在以下几个方向：
+
+1. **个人主页**：正在搭建的这个网站，使用现代化的技术栈，集成数字分身聊天功能
+2. **AI 知识库整理工具**：探索用 AI 进行知识管理和内容归档
+3. **产品设计案例**：多个从 0 到 1 的产品设计项目，涵盖用户研究、原型设计到落地全流程
+
+如果你想了解更多详情，可以通过首页的联系方式与我交流，我很乐意分享更多细节！`;
+    }
+    
+    // 兴趣爱好
+    if (query.includes('兴趣') || query.includes('爱好') || query.includes('喜欢') || query.includes('业余')) {
+      return `工作之余，我主要的兴趣爱好包括：
+
+1. **阅读**：喜欢阅读产品管理、设计思维、心理学等方面的书籍
+2. **写作**：偶尔会写一些产品思考和经验总结
+3. **视觉设计**：享受设计的过程，这也能帮助我更好地理解 UI/UX
+
+这些爱好让我的思维更加开阔，也能为工作带来不同的视角。`;
+    }
+    
+    // 个人特点
+    if (query.includes('特点') || query.includes('性格') || query.includes('为人') || query.includes('怎样的人')) {
+      return `了解我的人通常会这样评价我：
+
+1. **能扛事、重落地**：做事靠谱，能够承担责任，注重实际结果
+2. **乐意多角度思考**：不喜欢局限于单一视角，善于从不同维度分析问题
+3. **持续学习**：保持好奇心，愿意学习新东西，尤其是在 AI 和跨界领域
+
+我相信"于有限条件中持续自我精进"，这是我一直以来的人生信条。`;
+    }
+    
+    // 联系方式
+    if (query.includes('联系') || query.includes('微信') || query.includes('邮件') || query.includes('电话') || query.includes('找到你')) {
+      return `你可以通过以下方式联系我：
+
+📧 邮箱：2549275929@qq.com
+📱 电话：+86 13828023267
+📍 所在地：广东 · 江门
+💻 GitHub：@keke-0750
+
+你也可以直接在首页下方找到联系方式区域。我很期待与你交流！`;
+    }
+    
+    // 工作经历/经验
+    if (query.includes('经历') || query.includes('经验') || query.includes('背景')) {
+      return `我有多年的产品管理和 UI 设计经验，参与过多个项目从 0 到 1 的全过程。
+
+我的优势在于能够同时理解业务需求、用户体验和技术实现，这让我能够更好地平衡各方诉求，推动项目顺利落地。
+
+目前我正在探索 AI 在产品工作流中的应用，这是一个很有前景的方向。`;
+    }
+    
+    // 求职/合作
+    if (query.includes('求职') || query.includes('工作机会') || query.includes('合作') || query.includes('招聘')) {
+      return `感谢你对我感兴趣！我目前对新的机会持开放态度，尤其是能够发挥我产品管理和 UI 设计双重优势的角色。
+
+如果你有合适的机会或合作想法，欢迎通过以下方式联系我：
+- 邮箱：2549275929@qq.com
+- 电话：+86 13828023267
+
+我很期待与你深入交流！`;
+    }
+    
+    // 教育/学习
+    if (query.includes('学习') || query.includes('教育') || query.includes('学校') || query.includes('专业')) {
+      return `我一直保持着持续学习的状态。除了在工作中积累经验，我也会通过阅读、在线课程、实践项目等方式不断提升自己。
+
+最近我主要在学习：
+- 前端开发技术（React、Vite、Tailwind CSS）
+- AI 工具的应用和落地
+- 产品管理和设计思维的深度融合
+
+我相信学习是一个终身的过程。`;
+    }
+    
+    // 价值观/理念
+    if (query.includes('理念') || query.includes('价值观') || query.includes('信念') || query.includes('追求')) {
+      return `我的工作和人生理念可以概括为：
+
+**"能扛事、重落地，于有限条件中持续自我精进的跨界产品人"**
+
+我相信：
+- 产品工作要为用户创造真实价值
+- 在有限条件下做到最好是一种能力
+- 跨界思维能带来独特的竞争优势
+- 持续学习和自我迭代是成长的关键`;
+    }
+    
+    // 数字分身相关
+    if (query.includes('数字分身') || query.includes('AI') || query.includes('机器人') || query.includes(' bots')) {
+      return `我是吴思炜的数字分身，基于 AI 技术构建。我了解思炜的职业背景、项目经历、技能特长等信息。
+
+我的主要作用是：
+- 快速回答关于思炜的基本信息
+- 帮助访客了解思炜的专业能力
+- 提供联系方式和合作咨询
+
+当然，如果需要深入交流，建议直接联系思炜本人哦！`;
+    }
+    
+    // 默认回复
+    return `感谢你的提问！作为吴思炜的数字分身，我主要了解以下方面的信息：
+
+📌 职业背景：产品经理兼 UI 设计师
+📌 擅长领域：项目开发、AI 应用、知识整理
+📌 当前项目：搭建个人主页、整理作品集
+📌 个人特点：能扛事、重落地、持续学习
+
+你可以问我：
+- "你最近做什么？"
+- "你有哪些作品？"
+- "你的联系方式？"
+- "你的兴趣爱好？"
+
+或者直接联系本人：2549275929@qq.com`;
   };
 
   const handleSend = async () => {
