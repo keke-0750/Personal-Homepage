@@ -1,7 +1,9 @@
 import React from 'react';
 import ProfileCard from '@/components/ProfileCard';
 import ChatInterface from '@/components/ChatInterface';
+import { Card, CardContent } from '@/components/ui/card';
 import { ProfileInfo } from '@/types/types';
+import { Mail, Phone, MapPin, Github, ExternalLink, Bot } from 'lucide-react';
 
 const personalInfo: ProfileInfo = {
   name: '吴思炜',
@@ -14,6 +16,36 @@ const personalInfo: ProfileInfo = {
   recentWork: '搭自己的个人主页，整理作品集',
   expertise: ['项目开发', 'AI 应用', '知识整理'],
 };
+
+// 联系方式数据
+const contactInfo = {
+  email: '2549275929@qq.com',
+  phone: '+86 13828023267',
+  location: '广东 · 江门',
+  github: 'wusiwei1234',
+};
+
+// 作品数据
+const portfolioItems = [
+  {
+    title: '个人主页设计',
+    description: '使用 React + Vite + Tailwind CSS 构建的现代化个人主页，集成数字分身聊天功能。',
+    tags: ['React', 'Vite', 'Tailwind CSS'],
+    link: '#',
+  },
+  {
+    title: 'AI 知识库整理工具',
+    description: '基于 AI 的知识整理与归档系统，支持多格式文档处理和智能分类。',
+    tags: ['AI', 'Python', '知识管理'],
+    link: '#',
+  },
+  {
+    title: '产品设计作品集',
+    description: '包含多个产品从 0 到 1 的完整设计案例，涵盖用户研究、原型设计到落地全流程。',
+    tags: ['产品设计', 'UI/UX', '案例研究'],
+    link: '#',
+  },
+];
 
 const HomePage: React.FC = () => {
   const scrollToContent = () => {
@@ -113,24 +145,130 @@ const HomePage: React.FC = () => {
       {/* Main Content */}
       <section id="main-content" className="p-4 md:p-8 lg:p-12">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column - Profile */}
+        {/* Left Column - Profile, Contact, Portfolio */}
         <div className="lg:col-span-7 xl:col-span-8 space-y-8">
           <ProfileCard info={personalInfo} />
+          
+          {/* Contact Section */}
+          <Card className="tech-card">
+            <CardContent className="p-6">
+              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                <Mail className="w-5 h-5 text-primary" />
+                联系方式
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-start gap-3 p-4 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                  <Mail className="w-5 h-5 text-primary mt-0.5" />
+                  <div>
+                    <h4 className="text-sm font-semibold text-muted-foreground mb-1">邮箱</h4>
+                    <a href={`mailto:${contactInfo.email}`} className="text-foreground hover:text-primary transition-colors">
+                      {contactInfo.email}
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-4 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                  <Phone className="w-5 h-5 text-primary mt-0.5" />
+                  <div>
+                    <h4 className="text-sm font-semibold text-muted-foreground mb-1">电话</h4>
+                    <a href={`tel:${contactInfo.phone}`} className="text-foreground hover:text-primary transition-colors">
+                      {contactInfo.phone}
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-4 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                  <MapPin className="w-5 h-5 text-primary mt-0.5" />
+                  <div>
+                    <h4 className="text-sm font-semibold text-muted-foreground mb-1">所在地</h4>
+                    <p className="text-foreground">{contactInfo.location}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-4 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+                  <Github className="w-5 h-5 text-primary mt-0.5" />
+                  <div>
+                    <h4 className="text-sm font-semibold text-muted-foreground mb-1">GitHub</h4>
+                    <a 
+                      href={`https://github.com/${contactInfo.github}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
+                    >
+                      @{contactInfo.github}
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Portfolio Section */}
+          <div>
+            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <ExternalLink className="w-5 h-5 text-primary" />
+              作品展示
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {portfolioItems.map((item, index) => (
+                <Card key={index} className="tech-card hover:shadow-lg transition-shadow cursor-pointer group">
+                  <CardContent className="p-5">
+                    <h4 className="font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+                      {item.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                      {item.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {item.tags.map((tag, tagIndex) => (
+                        <span 
+                          key={tagIndex}
+                          className="px-2 py-1 bg-primary/5 text-primary rounded text-xs font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <a 
+                      href={item.link}
+                      className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+                    >
+                      查看详情
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
           
           <div className="hidden lg:block p-8 border border-dashed rounded-2xl border-primary/20 bg-primary/5">
              <h4 className="text-primary font-bold mb-2">💡 关于本主页</h4>
              <p className="text-sm text-muted-foreground leading-relaxed">
                这是一个使用 AI 辅助生成的个人主页原型。旨在通过数字分身和结构化展示，
-               为 HR 提供一个高效、清爽的信息获取窗口。欢迎与右侧的“数字分身”进行互动。
+               为 HR 提供一个高效、清爽的信息获取窗口。欢迎与右侧的"数字分身"进行互动。
              </p>
           </div>
         </div>
 
         {/* Right Column - Chat */}
-        <div className="lg:col-span-5 xl:col-span-4 sticky top-8 h-fit">
+        <div className="lg:col-span-5 xl:col-span-4 sticky top-8 h-fit space-y-4">
+          {/* Chat entrance highlight */}
+          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4 border border-primary/20">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <Bot className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-bold text-primary mb-1">与数字分身互动</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  向右滑动或向下滚动，与我的 AI 数字分身聊天，快速获取信息或留言。
+                </p>
+              </div>
+            </div>
+          </div>
+          
           <ChatInterface profile={personalInfo} />
           
-          <div className="mt-6 text-center lg:text-left">
+          <div className="text-center lg:text-left">
             <p className="text-xs text-muted-foreground">
               © 2026 吴思炜 | Powered by Miaoda AI
             </p>
