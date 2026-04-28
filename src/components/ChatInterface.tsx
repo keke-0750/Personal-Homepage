@@ -52,6 +52,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ profile }) => {
     }
   }, [messages, isTyping]);
 
+  // 注意：generateResponse 函数已不再使用，现在使用 AI 调用
+  // 保留此函数作为备用降级方案
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const generateResponse = (userQuery: string): string => {
     const query = userQuery.toLowerCase();
     

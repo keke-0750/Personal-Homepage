@@ -72,8 +72,8 @@ git push origin master
 | `VITE_AI_API_KEY` | `sk-64c739172a694f818d25123d75aad3f3` | DeepSeek API Key |
 | `VITE_AI_API_URL` | `https://api.deepseek.com/v1` | API 地址 |
 | `VITE_AI_MODEL` | `deepseek-chat` | 模型名称 |
-| `VITE_SUPABASE_URL` | `你的 Supabase URL` | Supabase 地址 |
-| `VITE_SUPABASE_ANON_KEY` | `你的 Supabase Key` | Supabase 密钥 |
+| `VITE_SUPABASE_URL` | `https://keke0750.supabase.supabase.co` | Supabase 地址 |
+| `VITE_SUPABASE_ANON_KEY` | `keke0750.supabase.supabase.co` | Supabase 密钥 |
 
 ⚠️ **重要提示：**
 - 不要将 `.env` 文件提交到 Git
