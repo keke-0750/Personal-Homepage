@@ -8,6 +8,7 @@ import { Send, Bot, User, Loader2 } from 'lucide-react';
 import { supabase } from '@/db/supabase';
 import { ChatMessage, ProfileInfo } from '@/types/types';
 import { toast } from 'sonner';
+import { chatWithAI } from '@/services/ai';
 
 interface ChatInterfaceProps {
   profile: ProfileInfo;
@@ -18,6 +19,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ profile }) => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [conversationHistory, setConversationHistory] = useState<Array<{role: string; content: string}>>([]);
 
   useEffect(() => {
     // Initial greeting
@@ -216,10 +218,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ profile }) => {
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInput('');
+    const newInput = '';
+    setInput(newInput);
     setIsTyping(true);
 
-    // Save to Supabase (optional, but good for persistence)
+    // 保存用户消息到 Supabase
     try {
       await supabase.from('chat_messages').insert([
         { role: 'user', content: userMessage.content },
@@ -228,18 +231,31 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ profile }) => {
       console.error('Error saving message:', error);
     }
 
-    // Simulate AI thinking
-    setTimeout(async () => {
+    // 调用 AI 获取回复
+    try {
+      // 获取 AI 回复
+      const aiResponse = await chatWithAI(userMessage.content, conversationHistory);
+      
       const botResponse: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: generateResponse(userMessage.content),
+        content: aiResponse,
         created_at: new Date().toISOString(),
       };
 
       setMessages((prev) => [...prev, botResponse]);
+      
+      // 更新对话历史（保留最近 10 轮对话）
+      const newHistory = [
+        ...conversationHistory,
+        { role: 'user', content: userMessage.content },
+        { role: 'assistant', content: aiResponse },
+      ].slice(-20); // 保留最近 10 轮（20 条消息）
+      setConversationHistory(newHistory);
+      
       setIsTyping(false);
 
+      // 保存 AI 回复到 Supabase
       try {
         await supabase.from('chat_messages').insert([
           { role: 'assistant', content: botResponse.content },
@@ -247,7 +263,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ profile }) => {
       } catch (error) {
         console.error('Error saving bot message:', error);
       }
-    }, 1000);
+    } catch (error) {
+      console.error('AI chat error:', error);
+      setIsTyping(false);
+      toast.error('AI 回复失败，请稍后重试');
+    }
   };
 
   const quickQuestions = [
